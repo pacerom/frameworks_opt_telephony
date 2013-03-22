@@ -171,6 +171,8 @@ public class PhoneProxy extends Handler implements Phone {
                     logd("phoneObjectUpdater: LTE ON CDMA property is set. Use CDMA Phone" +
                             " newVoiceRadioTech=" + newVoiceRadioTech +
                             " mActivePhone=" + mActivePhone.getPhoneName());
+                    // IccCardProxy needs to be kept in sync
+                    mIccCardProxy.setVoiceRadioTech(newVoiceRadioTech);
                     return;
                 } else {
                     logd("phoneObjectUpdater: LTE ON CDMA property is set. Switch to CDMALTEPhone" +
@@ -187,6 +189,8 @@ public class PhoneProxy extends Handler implements Phone {
                     logd("phoneObjectUpdater: No change ignore," +
                             " newVoiceRadioTech=" + newVoiceRadioTech +
                             " mActivePhone=" + mActivePhone.getPhoneName());
+                    // IccCardProxy needs to be kept in sync
+                    mIccCardProxy.setVoiceRadioTech(newVoiceRadioTech);
                     return;
                 }
             }
@@ -197,6 +201,8 @@ public class PhoneProxy extends Handler implements Phone {
             // delete the phone without anything to replace it with!
             logd("phoneObjectUpdater: Unknown rat ignore, "
                     + " newVoiceRadioTech=Unknown. mActivePhone=" + mActivePhone.getPhoneName());
+            // IccCardProxy, though, needs to know even if radio tech is unknown
+            mIccCardProxy.setVoiceRadioTech(newVoiceRadioTech);
             return;
         }
 
