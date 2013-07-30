@@ -3714,7 +3714,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
         }
     }
 
-    private ArrayList<CellInfo> responseCellInfoList(Parcel p) {
+    protected ArrayList<CellInfo> responseCellInfoList(Parcel p) {
         int numberOfInfoRecs;
         ArrayList<CellInfo> response;
 
