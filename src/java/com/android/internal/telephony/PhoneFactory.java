@@ -32,8 +32,6 @@ import com.android.internal.telephony.uicc.UiccController;
 
 import java.lang.reflect.Constructor;
 
-import java.lang.reflect.Constructor;
-
 /**
  * {@hide}
  */
