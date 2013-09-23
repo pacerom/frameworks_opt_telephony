@@ -444,7 +444,7 @@ public final class GsmCallTracker extends CallTracker {
         if (slowModem) {
             if (polledCalls.size() == 0 && !mHangupPendingMO && pendingMO != null) {
                 mLastRelevantPoll = obtainMessage(EVENT_POLL_CALLS_RESULT);
-                cm.getCurrentCalls(mLastRelevantPoll);
+                mCi.getCurrentCalls(mLastRelevantPoll);
                 return;
             }
         }
