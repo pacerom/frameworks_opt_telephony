@@ -217,13 +217,13 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
     }
 
     @Override
-    protected DataCallState getDataCallState(Parcel p, int version) {
-        DataCallState dataCall = new DataCallState();
+    protected DataCallResponse getDataCallResponse(Parcel p, int version) {
+        DataCallResponse dataCall = new DataCallResponse();
 
         boolean oldRil = needsOldRilFeature("datacall");
 
         if (!oldRil && version < 5) {
-            return super.getDataCallState(p, version);
+            return super.getDataCallResponse(p, version);
         } else if (!oldRil) {
             dataCall.version = version;
             dataCall.status = p.readInt();
@@ -234,7 +234,7 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
             dataCall.ifname = p.readString();
             if ((dataCall.status == DcFailCause.NONE.getErrorCode()) &&
                     TextUtils.isEmpty(dataCall.ifname) && dataCall.active != 0) {
-              throw new RuntimeException("getDataCallState, no ifname");
+              throw new RuntimeException("getDataCallResponse, no ifname");
             }
             String addresses = p.readString();
             if (!TextUtils.isEmpty(addresses)) {
@@ -278,14 +278,14 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
     @Override
     protected Object
     responseSetupDataCall(Parcel p) {
-        DataCallState dataCall;
+        DataCallResponse dataCall;
 
         boolean oldRil = needsOldRilFeature("datacall");
 
         if (!oldRil)
            return super.responseSetupDataCall(p);
 
-        dataCall = new DataCallState();
+        dataCall = new DataCallResponse();
         dataCall.version = 4;
 
         dataCall.cid = 0; // Integer.parseInt(p.readString());
