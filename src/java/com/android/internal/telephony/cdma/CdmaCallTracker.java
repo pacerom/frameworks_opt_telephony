@@ -828,7 +828,7 @@ public final class CdmaCallTracker extends CallTracker {
                     "does not belong to CdmaCallTracker " + this);
         }
 
-        hangupPendingMO = true;
+        mHangupPendingMO = true;
         call.onHangupLocal();
         mPhone.notifyPreciseCallStateChanged();
     }
