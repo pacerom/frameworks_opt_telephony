@@ -536,4 +536,6 @@ class SipCommandInterface extends BaseCommands implements CommandsInterface {
     @Override
     public void setCellInfoListRate(int rateInMillis, Message response) {
     }
+
+    public boolean needsOldRilFeature(String feature) { return false; }
 }

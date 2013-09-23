@@ -1622,4 +1622,10 @@ public interface CommandsInterface {
      * @return version of the ril.
      */
     int getRilVersion();
+
+    /**
+     * @hide
+     * CM-specific: Ask the RIL about the presence of back-compat flags
+     */
+    public boolean needsOldRilFeature(String feature);
 }
