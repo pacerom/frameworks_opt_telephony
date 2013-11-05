@@ -378,7 +378,7 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
     }
 
     @Override
-    protected void
+    protected RILRequest
     processSolicited (Parcel p) {
         int serial, error;
         boolean found = false;
@@ -393,7 +393,7 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
         if (rr == null) {
             Log.w(LOG_TAG, "Unexpected solicited response! sn: "
                             + serial + " error: " + error);
-            return;
+            return null;
         }
 
         Object ret = null;
@@ -536,26 +536,23 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
                     AsyncResult.forMessage(rr.mResult, null, tr);
                     rr.mResult.sendToTarget();
                 }
-                rr.release();
-                return;
+                return rr;
             }
         }
 
         if (error != 0) {
             rr.onError(error, ret);
-            rr.release();
-            return;
         }
+        else {
+            if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
+                + " " + retToString(rr.mRequest, ret));
 
-        if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
-            + " " + retToString(rr.mRequest, ret));
-
-        if (rr.mResult != null) {
-            AsyncResult.forMessage(rr.mResult, ret, null);
-            rr.mResult.sendToTarget();
+            if (rr.mResult != null) {
+                AsyncResult.forMessage(rr.mResult, ret, null);
+                rr.mResult.sendToTarget();
+            }
         }
-
-        rr.release();
+        return rr;
     }
 
     @Override

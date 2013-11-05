@@ -455,7 +455,7 @@ public final class GsmCallTracker extends CallTracker {
         boolean unknownConnectionAppeared = false;
 
         if (slowModem) {
-            if (polledCalls.size() == 0 && !mHangupPendingMO && pendingMO != null) {
+            if (polledCalls.size() == 0 && !mHangupPendingMO && mPendingMO != null) {
                 mLastRelevantPoll = obtainMessage(EVENT_POLL_CALLS_RESULT);
                 mCi.getCurrentCalls(mLastRelevantPoll);
                 return;

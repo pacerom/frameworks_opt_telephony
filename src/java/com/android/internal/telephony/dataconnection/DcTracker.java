@@ -691,7 +691,7 @@ public final class DcTracker extends DcTrackerBase {
                         radioTech);
                 if (waitingApns.isEmpty()) {
                     notifyOffApnsOfAvailability(apnContext.getReason());
-                    retValue = setupData(apnContext);
+                    retValue = setupData(apnContext, radioTech);
                     if(!retValue) {
                         notifyNoData(DcFailCause.MISSING_UNKNOWN_APN, apnContext);
                     }
